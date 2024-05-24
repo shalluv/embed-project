@@ -29,7 +29,7 @@ const CardGroup = (props: Props): JSX.Element => {
   return (
     <div className="flex w-full flex-col gap-8">
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight lg:text-4xl">
-        ปัจจุบัน (
+        ข้อมูลล่าสุด (
         {new Date(data.timestamp).toLocaleDateString("th-th", {
           year: "numeric",
           month: "long",

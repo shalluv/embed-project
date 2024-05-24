@@ -6,11 +6,28 @@ export async function GET(request: Request) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
+			"start_relative": { "value": 2, "unit": "days" },
+			"metrics": [
+				{
+					"name": `${process.env.DEVICE_ID}`,
+					"tags": { "attr": ["temperature", "humidity", "dust_density"] },
+					"limit": 50,
+					"group_by": [{ "name": "tag", "tags": ["attr"] }]
+				}
+			]
 		})
 	})
 	const data = await res.json()
 
-	console.log(data)
+	const labels = data.queries[0].results[0].values.map((value: any) => value[0])
+	const temperature = data.queries[0].results[0].values.map((value: any) => value[1])
+	const humidity = data.queries[0].results[1].values.map((value: any) => value[1])
+	const pm10 = data.queries[0].results[2].values.map((value: any) => value[1])
 
-	return Response.json(data)
+	return Response.json({
+		labels,
+		temperature,
+		humidity,
+		pm10,
+	})
 }
