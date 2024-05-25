@@ -15,7 +15,8 @@ export async function GET(request: Request) {
 					"group_by": [{ "name": "tag", "tags": ["attr"] }]
 				}
 			]
-		})
+		}),
+		next: { revalidate: 60 }
 	})
 	const data = await res.json()
 

@@ -16,7 +16,9 @@ const CardGroup = (props: Props): JSX.Element => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/data");
+        const res = await fetch("/api/data", {
+          next: { revalidate: 60 },
+        });
         const data = await res.json();
         setData(data);
       } catch (error) {

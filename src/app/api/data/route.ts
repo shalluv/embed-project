@@ -4,6 +4,7 @@ export async function GET(request: Request) {
 		headers: {
 			Authorization: `Device ${process.env.DEVICE_ID}:${process.env.DEVICE_TOKEN}`,
 		},
+		next: { revalidate: 60 }
 	})
 	const data = await res.json()
 

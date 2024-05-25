@@ -18,7 +18,9 @@ const LineChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/graph");
+        const res = await fetch("/api/graph", {
+          next: { revalidate: 60 },
+        });
         const data = await res.json();
         setLabels(
           data.labels.map((label: any) =>
